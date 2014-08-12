@@ -1,0 +1,21 @@
+#!/bin/sh /etc/rc.common
+# This script is part of Meshkit / Meshwizard
+# It used to setup the Router after the first boot,
+# after that it is disabled
+
+START=99
+boot() {
+	logger -t wizard.notice \"the botinfo-configurator is starting his work\"
+	if [ "$(uci get botinfo.botinfo.enabled)" == "false" ]
+		then
+			def=$(ip addr show to 104.62.0.0/16 | head -n 1 | cut -d" " -f 2 | cut -d":" -f 1)
+			if [ $? -eq 0 ]
+				then
+				/etc/init.d/botinfo disable
+				uci set botinfo.botinfo.enabled=true
+				uci set botinfo.botinfo.wifidev=$def
+				uci commit
+			fi
+	fi
+	logger -t wizard.notice \"The botinfo-configurator has finished\"
+}

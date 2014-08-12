@@ -1,0 +1,4 @@
+
+config botinfo 'botinfo'
+	option wifidev ''
+	option enabled 'false'
