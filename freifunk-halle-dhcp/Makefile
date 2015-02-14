@@ -15,7 +15,7 @@ define Package/freifunk-halle-dhcp
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-dhcp
-  DEPENDS:=freifunk-common
+  DEPENDS:=+freifunk-common
 endef
 
 define Package/freifunk-halle-dhcp/description
