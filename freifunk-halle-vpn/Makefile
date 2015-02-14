@@ -15,7 +15,7 @@ define Package/freifunk-halle-vpn
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-vpn
-  DEPENDS:=freifunk-halle-vpn-prepare openvpn-polarssl
+  DEPENDS:=+freifunk-halle-vpn-prepare +openvpn-polarssl
 endef
 
 define Package/freifunk-halle-vpn/description
@@ -33,6 +33,7 @@ define Build/Compile
 endef
 
 define Package/freifunk-halle-vpn/install
+	$(CP) ./files/* $(1)/
 endef
 
 $(eval $(call BuildPackage,freifunk-halle-vpn))

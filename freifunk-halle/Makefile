@@ -15,7 +15,7 @@ define Package/freifunk-halle
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle
-  DEPENDS:=freifunk-halle-botinfo freifunk-halle-dhcp
+  DEPENDS:=+freifunk-halle-botinfo +freifunk-halle-dhcp
 endef
 
 define Package/freifunk-halle/description
@@ -33,6 +33,7 @@ define Build/Compile
 endef
 
 define Package/freifunk-halle/install
+	$(CP) ./files/* $(1)/
 endef
 
 $(eval $(call BuildPackage,freifunk-halle))

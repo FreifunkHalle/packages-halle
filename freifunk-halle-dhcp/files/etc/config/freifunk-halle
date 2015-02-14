@@ -1,5 +1,5 @@
 config directservers 'hallevpn'
-        list server '85.214.81.232'
+        list server '134.255.239.79'
         list server '178.254.31.83'
         list server '192.53.103.108'
         list server '192.53.103.104'

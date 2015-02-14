@@ -15,7 +15,7 @@ define Package/freifunk-halle-botinfo
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-botinfo
-  DEPENDS:=freifunk-common iwinfo
+  DEPENDS:=+freifunk-common +iwinfo
 endef
 
 define Package/freifunk-halle-botinfo/description

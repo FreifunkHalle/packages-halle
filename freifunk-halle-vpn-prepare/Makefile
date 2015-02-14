@@ -1,10 +1,10 @@
-# Copyright (C) 2011 Manuel Munz <freifunk at somakoma de>
+# Copyright (C) 2015 Matthias Fuhrmeister <freifunk at 3dfxatwork de>
 # This is free software, licensed under the Apache 2.0 license.
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-halle-vpn-prepare
-PKG_RELEASE:=0.1
+PKG_RELEASE:=0.2
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
