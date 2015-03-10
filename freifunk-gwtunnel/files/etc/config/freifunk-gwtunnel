@@ -1,0 +1,7 @@
+
+config 'clientsettings' 'gwt'
+	option 'enable' '0'
+	option 'interface' ''
+	option 'destinationip' ''
+
+

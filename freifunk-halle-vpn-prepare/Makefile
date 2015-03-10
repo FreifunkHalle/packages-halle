@@ -33,7 +33,7 @@ define Build/Compile
 endef
 
 define Package/freifunk-halle-vpn-prepare/install
-	$(CP) ./files/* $(1)/
+  $(CP) ./files/* $(1)/
 endef
 
 $(eval $(call BuildPackage,freifunk-halle-vpn-prepare))

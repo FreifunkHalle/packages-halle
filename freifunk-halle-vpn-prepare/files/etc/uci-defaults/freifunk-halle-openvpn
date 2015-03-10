@@ -1,0 +1,57 @@
+#!/bin/sh
+
+uci delete openvpn.custom_config
+uci delete openvpn.sample_server
+uci delete openvpn.sample_client
+
+uci set openvpn.client_halle_1=openvpn
+uci set openvpn.client_halle_1.enabled=1
+uci set openvpn.client_halle_1.client=1
+uci set openvpn.client_halle_1.float=1
+uci set openvpn.client_halle_1.dev=tap0
+uci set openvpn.client_halle_1.tun_mtu=1400
+uci set openvpn.client_halle_1.proto='udp'
+uci set openvpn.client_halle_1.remote='vpn1.freifunk-halle.org 1199'
+uci set openvpn.client_halle_1.tls_remote='server-ffvpn'
+uci set openvpn.client_halle_1.ca='/etc/openvpn/halle.ca'
+uci set openvpn.client_halle_1.cert='/etc/openvpn/halle.crt'
+uci set openvpn.client_halle_1.key='/etc/openvpn/halle.key'
+uci set openvpn.client_halle_1.auth='SHA1'
+uci set openvpn.client_halle_1.cipher='aes-256-cbc'
+uci set openvpn.client_halle_1.nobind='1'
+uci set openvpn.client_halle_1.persist_key='1'
+uci set openvpn.client_halle_1.persist_tun='1'
+uci set openvpn.client_halle_1.verb=0
+uci set openvpn.client_halle_1.keepalive='10 60'
+uci set openvpn.client_halle_1.route_up='/etc/openvpn/route-up.sh'
+uci set openvpn.client_halle_1.up='/etc/openvpn/route-up.sh'
+uci set openvpn.client_halle_1.up_restart=1
+uci set openvpn.client_halle_1.script_security=2
+uci set openvpn.client_halle_1.route_delay=10
+
+uci set openvpn.client_halle_2=openvpn
+uci set openvpn.client_halle_2.enabled='1'
+uci set openvpn.client_halle_2.client='1'
+uci set openvpn.client_halle_2.float='1'
+uci set openvpn.client_halle_2.dev='tap1'
+uci set openvpn.client_halle_2.tun_mtu='1492'
+uci set openvpn.client_halle_2.port='1198'
+uci set openvpn.client_halle_2.proto='tcp'
+uci set openvpn.client_halle_2.remote='vpn2.freifunk-halle.org 1198'
+uci set openvpn.client_halle_2.tls_remote='server-ffvpn'
+uci set openvpn.client_halle_2.ca='/etc/openvpn/halle.ca'
+uci set openvpn.client_halle_2.cert='/etc/openvpn/halle.crt'
+uci set openvpn.client_halle_2.key='/etc/openvpn/halle.key'
+uci set openvpn.client_halle_2.auth='SHA1'
+uci set openvpn.client_halle_2.cipher='aes-256-cbc'
+uci set openvpn.client_halle_2.nobind='1'
+uci set openvpn.client_halle_2.persist_key='1'
+uci set openvpn.client_halle_2.persist_tun='1'
+uci set openvpn.client_halle_2.verb='0'
+uci set openvpn.client_halle_2.keepalive='10 60'
+uci set openvpn.client_halle_2.route_up='/etc/openvpn/route-up.sh'
+uci set openvpn.client_halle_2.up='/etc/openvpn/route-up.sh'
+uci set openvpn.client_halle_2.up_restart='1'
+uci set openvpn.client_halle_2.script_security='2'
+uci set openvpn.client_halle_2.route_delay='10'
+uci commit openvpn
