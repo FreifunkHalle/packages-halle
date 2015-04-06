@@ -15,11 +15,10 @@ define Package/freifunk-halle-without-vpn
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-vpn
-  DEPENDS:=+luci +freifunk-halle-botinfo +freifunk-halle-botinfo \
-    +luci-mod-freifunk +luci-mod-freifunk-community +meshwizard \
-    +luci-app-freifunk-policyrouting +freifunk-halle-dhcp \
-    +luci-app-freifunk-widgets +luci-ssl +iputils-traceroute6 \
-    +luci-i18n-freifunk-policyrouting-de +luci-i18n-olsr-de +freifunk-de
+  DEPENDS:=+luci +freifunk-halle-botinfo +luci-mod-freifunk \
+	+luci-mod-freifunk-community +meshwizard \
+	+freifunk-halle-dhcp \
+	+olsrd-mod-txtinfo +batctl
 endef
 
 define Package/freifunk-halle-without-vpn/description

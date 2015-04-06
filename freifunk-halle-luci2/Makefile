@@ -15,10 +15,11 @@ define Package/freifunk-halle-luci2
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-vpn
-  DEPENDS:=+freifunk-halle-vpn +luci +freifunk-halle-botinfo +freifunk-halle-dhcp \
-    +luci-app-splash +meshwizard +iptables-mod-nat-extra +iptables-mod-ipopt \
+  DEPENDS:=+freifunk-halle-vpn +freifunk-halle-botinfo +freifunk-halle-dhcp \
+    +luci-app-splash +meshwizard +freifunk-firewall \
 	+olsrd +olsrd-mod-dyn-gw-plain +olsrd-mod-jsoninfo +olsrd-mod-nameservice \
-	+olsrd-mod-watchdog +ip +freifunk-watchdog +freifunk-gwcheck +freifunk-de
+	+olsrd-mod-watchdog +ip +freifunk-gwcheck \
+	+olsrd-mod-txtinfo +batctl +luci2
 	 
 endef
 

@@ -16,10 +16,11 @@ define Package/freifunk-halle-full
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-vpn
   DEPENDS:=+freifunk-halle-vpn +luci +freifunk-halle-botinfo +freifunk-halle-dhcp \
-    +luci-mod-freifunk +luci-mod-freifunk-community +meshwizard +freifunk-p2pblock \
+    +luci-mod-freifunk +luci-mod-freifunk-community +luci-app-meshwizard +freifunk-p2pblock \
     +luci2 +luci-proto-ppp +luci-app-freifunk-widgets +luci-ssl \
     +luci-app-freifunk-policyrouting +luci-app-p2pblock +iputils-traceroute6 +freifunk-de \
-    +luci-i18n-freifunk-policyrouting-de +luci-i18n-olsr-de +luci-i18n-p2pblock-de +luci-i18n-openvpn-de
+    +luci-i18n-freifunk-policyrouting-de +luci-i18n-olsr-de +luci-i18n-p2pblock-de +luci-i18n-openvpn-de \
+    +olsrd-mod-txtinfo +batctl +ppp +ppp-mod-pppoe
 endef
 
 define Package/freifunk-halle-full/description
