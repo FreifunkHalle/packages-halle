@@ -120,7 +120,7 @@ bot_neighbours() {
 	echo '}'
 }
 
-ibot_users() {
+bot_users() {
 	DLEASES="/var/dhcp.leases"
 	SLEASES="/var/run/dhcpsplash.leases"
 
