@@ -121,34 +121,12 @@ bot_neighbours() {
 }
 
 bot_users() {
-	DLEASES="/var/dhcp.leases"
-	SLEASES="/var/run/dhcpsplash.leases"
-
+	DLEASES="/tmp/dhcp.leases"
 	echo 'users{'
-
-	if [ -f "$SLEASES" ]; then
-		LTIMEOUT="$(($(date +%s)-$(($(uci get luci_splash.general.leasetime)*3600))))"
-
-		( if [ -s "$DLEASES" ]; then
-			while read TIMEOUT MAC IP NAME FLAGS; do
-				LEASESTATE=$(splash_getleasestate $MAC $IP)
-				MAC=$(echo $MAC | sed y/abcdef/ABCDEF/ | webif_masqmac)
-				echo "DHCP,$IP,$NAME,$MAC,$LEASESTATE"
-			done < $DLEASES
-		fi
-
-		cat /proc/net/arp | sed '/^IP/d' |
-		while read IP TYPE FLAGS MAC MASK IFACE; do
-			NAME=$(sed -ne "s/^$IP[[:space:]]\([^[:space:]]\+\)[[:space:]]#.\+/\1/p;t" /etc/hosts)
-			test -z "$NAME" && NAME='*'
-			if ! grep -iqs " $IP " $DLEASES; then
-				LEASESTATE=$(splash_getleasestate $MAC $IP)
-				MAC=$(echo $MAC | webif_masqmac)
-				echo "STATIC,$IP,$NAME,$MAC,$LEASESTATE"
-			fi
-		done ) | sed -e's/^/	/g'
+	if [ -f "$DLEASES" ]; then
+		count=$(cat $DLEASES | wc -l)
+		echo count=$count
 	fi
-
 	echo '}'
 }
 
