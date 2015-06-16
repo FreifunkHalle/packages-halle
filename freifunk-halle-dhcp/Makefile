@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-halle-dhcp
-PKG_RELEASE:=0.3
+PKG_RELEASE:=0.4
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
