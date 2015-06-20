@@ -1,10 +1,10 @@
 #!/bin/sh
 
-[ "$ACTION" = ifup ] && { [ "$INTERFACE" = wan ] && { [ "$INTERFACE" = wwan ] {
+[ "$ACTION" = ifup ] && { [ "$INTERFACE" = wan ] || { [ "$INTERFACE" = wwan ] {
 	/etc/init.d/openvpn restart
 	logger -t openvpn wurde gestartet
  } } }
-[ "$ACTION" = ifdown ] && { [ "$INTERFACE" = wan ] && { [ "$INTERFACE" = wwan ] {
+[ "$ACTION" = ifdown ] && { [ "$INTERFACE" = wan ] || { [ "$INTERFACE" = wwan ] {
 	/etc/init.d/openvpn stop
 	logger -t openvpn wurde gestoppt 
 } } }
