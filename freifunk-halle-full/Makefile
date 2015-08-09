@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-halle-full
-PKG_RELEASE:=1.0
+PKG_RELEASE:=1.0.1
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -14,7 +14,7 @@ define Package/freifunk-halle-full
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
-  TITLE:=freifunk-halle-vpn
+  TITLE:=freifunk-halle-full
   DEPENDS:=+freifunk-halle-vpn +luci +freifunk-halle-botinfo +freifunk-halle-dhcp \
     +luci-mod-freifunk +luci-mod-freifunk-community +luci-app-meshwizard +freifunk-p2pblock \
     +luci2 +luci-proto-ppp +luci-app-freifunk-widgets +luci-ssl \

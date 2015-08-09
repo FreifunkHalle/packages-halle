@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-halle-fastd
-PKG_RELEASE:=0.1
+PKG_RELEASE:=0.1.1
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -16,11 +16,9 @@ define Package/freifunk-halle-fastd
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-fastd
   DEPENDS:=+luci +freifunk-halle-botinfo +freifunk-halle-dhcp \
-    +luci-mod-freifunk +luci-mod-freifunk-community +luci-app-meshwizard \
-    +luci-app-freifunk-widgets  \
-    +iputils-traceroute6 +freifunk-de \
-    +luci-i18n-freifunk-policyrouting-de +luci-i18n-olsr-de \
-    +olsrd-mod-txtinfo +batctl 
+    +luci-mod-freifunk +luci-mod-freifunk-community \
+    +luci-app-freifunk-widgets +iputils-traceroute6  \
+    +olsrd-mod-txtinfo +batctl +fastd
 endef
 
 define Package/freifunk-halle-fastd/description
