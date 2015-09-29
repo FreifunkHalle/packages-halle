@@ -20,9 +20,7 @@ setup_interface () {
 	# TODO: apply $broadcast
 
 	for i in $router ; do
-		for j in $(uci get freifunk-halle.hallevpn.server) ; do
-			proto_add_ipv4_route "$j" 32 "$i"
-		done
+		proto_add_ipv4_route 0.0.0.0 0 "$i" "$ip"
 	done
 
 	# CIDR STATIC ROUTES (rfc3442)
