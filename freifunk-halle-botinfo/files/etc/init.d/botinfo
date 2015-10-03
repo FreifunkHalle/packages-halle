@@ -8,7 +8,7 @@ boot() {
 	logger -t wizard.notice \"the botinfo-configurator is starting his work\"
 	if [ "$(uci get botinfo.botinfo.enabled)" == "false" ]
 		then
-			def=$(ip addr show to 104.62.0.0/16 | head -n 1 | cut -d" " -f 2 | cut -d":" -f 1)
+			def=$(ip addr show to 10.62.0.0/16 | head -n 1 | cut -d" " -f 2 | cut -d":" -f 1)
 			if [ $? -eq 0 ]
 				then
 				/etc/init.d/botinfo disable

@@ -10,35 +10,30 @@ echo
 . /lib/functions/network.sh
 . /lib/functions.sh
 . /usr/share/shlib-webif.sh
-. /usr/share/shlib-olsr.sh
 
 bot_usage() {
 	cat<<EOF
 Usage: ./cgi-bin-botinfo.txt?cat=<category>[,<category2>,<category3>,...]
 
 possible categories are:
- address
- hosts
- neighbours
+ neighbors
  nvram
  olsr
- resolv
  routes
- scan
  uptime
  version
  wlan
+ users
  
-additional categories:
 EOF
 
 }
 
 # read query string
 webif_parse_urlquery
-cat=$(echo $QUERY_STRING | cut -d "=" -f2)
+
 WLDEV=$(uci get botinfo.botinfo.wifidev)
-if [[ "$WLANDEV" == "" ]]
+if [[ "$WLDEV" == "" ]]
 then
   uci set botinfo.botinfo.enabled=false
   uci commit
@@ -51,27 +46,12 @@ output_cmd()
 	( eval $2 2>&1 ) | sed -e's/[\{\}]/\\&/g;s/^/	/g'
 	echo '}'
 }
-interface_to_ip() {
-        ip -f inet addr show dev "${1%:*}" label "$1" | sed -ne '2{s/ \+inet \([0-9\.]\+\).*/\1/;p}'
-}
-
-get_board() {
-	#boardtype=$(uci get )
-	#boardnum=$(uci get )
-	echo a > /dev/null
-}
-
-internet() {
-	config_load network
-}
-                
 
 bot_nvram() {
 	ff_adm_nick=$(uci get freifunk.contact.nickname)
 	wl0_channel=$(iwinfo $WLDEV info | grep Channel | cut -d ":" -f 3 | cut -d " " -f 2)
 	wan_hostname=$(uci get system.@system[0].hostname)
 	ff_release=$(cat /etc/openwrt_version )
-	#board=$(cat /proc/cpuinfo | grep machine | cut -d":" -f2 | sed 's/^ //g')
 	board=$(cat /tmp/sysinfo/model)
 	ff_adm_mail=$(uci get freifunk.contact.mail)
 	ff_adm_name=$(uci get freifunk.contact.name)
@@ -81,28 +61,12 @@ bot_nvram() {
 	ff_adm_loc=$(uci get system.@system[0].location)
 	output_cmd 'nvram' 'echo "ff_adm_loc=$ff_adm_loc"; echo "boardtype=$board"; echo "ff_release=$ff_release"; echo "ff_adm_nick=$ff_adm_nick"; echo "ff_adm_mail=$ff_adm_mail"; echo "ff_adm_name=$ff_adm_name"; echo "ff_adm_note=$ff_adm_note"; echo "ff_adm_latlon=$ff_adm_latlon;$ff_adm_latlon1"; echo "wan_hostname=$wan_hostname"; echo "wl0_channel=$wl0_channel"' 
 }
-bot_resolv() {
-	output_cmd 'resolv' 'cat /etc/resolv.conf | sed -ne "/^\(search\|nameserver\)/ { p }"'
-}
 
-bot_address() {
-	IP=$(ip -f inet addr show dev $WLDEV label $WLDEV |sed -ne'2{s/ \+inet \([0-9\.]\+\).*/\1/;p}')
-	MAC=$(ip link show dev $WLDEV|sed -ne'2{s/.*ether \+\([^ ]\+\).*/\1/;p}')
-	WLMASK=$(ifconfig $WLDEV | grep $IP| cut -d ":" -f 4)
-	output_cmd 'address' 'echo "$IP,$WLMASK,$MAC"'
-}
-
-bot_neighbours() {
-	# OLSR Neighbours
+bot_neighbors() {
+	# OLSR Neighbors
 	if [ -x /usr/sbin/olsrd ]; then
-		echo 'neighbours_olsr{'
-
-		for line in $(olsr_neighbours); do
-			ifs="$IFS"; IFS=","; set -- $line; IFS="$ifs"
-			etx="${7#9999.98}"
-			echo "	$(interface_to_ip $1)	$2	$3	$4	$5	$6	${etx:-0.00}"
-		done
-
+		echo 'neighbors_olsr{'
+		echo /neighbors | nc 127.0.0.1 9090
 		echo '}'
 	fi
 
@@ -158,22 +122,12 @@ pow() #@ USAGE: pow base exponent
 }
 
 bot_version() {
-	version=$(cat /etc/banner | sed -n '6p' | cut -d "-" -f 1)
+	version=$(cat /etc/banner | sed -n '7p' )
 	output_cmd 'version' 'echo "$version"'
-}
-bot_board() {
-	get_board
-	output_cmd 'board' 'echo "$boardtype,$boardnum"'
 }
 
 bot_uptime() {
 	output_cmd 'uptime' 'uptime'
-}
-
-bot_wlscan() {
-	echo 'wlan_scan{'
-	iwlist $WLDEV scanning |sed -n '1!p'
-	echo '}'
 }
 
 bot_routes() {
@@ -181,27 +135,16 @@ bot_routes() {
 }
 
 bot_olsr() {
-	output_cmd 'botolsr' 'wget -q -O - http://127.0.0.1:2006/'
+	output_cmd 'botolsr' 'echo / | nc 127.0.0.1 9090'
 }
-
-bot_hosts() {
-        output_cmd 'hosts' 'cat /var/etc/hosts.olsr | sed -ne"s#^\([0-9.]\+\)[[:space:]]\+\([^[:space:]]\+\).*\$#\1 \2#p"'
-}
-
 
 cat=$(echo $QUERY_STRING | cut -d "=" -f 2)
 
 test -z $cat && bot_usage
 for cat in $(echo $cat | sed 's/,/ /g'); do
 	case $cat in
-		board)
-		#bot_board
-		;;
-		scan)
-		bot_wlscan
-		;;
-		neighbours)
-		bot_neighbours
+		neighbors)
+		bot_neighbors
 		;;
 		routes)
 		bot_routes
@@ -218,20 +161,11 @@ for cat in $(echo $cat | sed 's/,/ /g'); do
 		wlan)
 		bot_wlan
 		;;
-		address)
-		bot_address
-		;;
 		nvram)
 		bot_nvram
 		;;
-		resolv)
-		bot_resolv
-		;;
 		olsr)
 		bot_olsr
-		;;
-		hosts)
-		bot_hosts
 		;;
 		*)
 		echo -e "not implemented: $cat\n"
