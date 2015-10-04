@@ -135,7 +135,9 @@ bot_routes() {
 }
 
 bot_olsr() {
-	output_cmd 'botolsr' 'echo / | nc 127.0.0.1 9090'
+	echo 'olsr{'
+                echo / | nc 127.0.0.1 9090
+        echo '}'
 }
 
 cat=$(echo $QUERY_STRING | cut -d "=" -f 2)
