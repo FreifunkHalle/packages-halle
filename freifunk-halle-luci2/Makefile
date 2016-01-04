@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-halle-luci2
-PKG_RELEASE:=1.0
+PKG_RELEASE:=1.1.1
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -19,7 +19,7 @@ define Package/freifunk-halle-luci2
     	+meshwizard +freifunk-firewall +uhttpd +uhttpd-mod-ubus \
 	+olsrd +olsrd-mod-dyn-gw-plain +olsrd-mod-jsoninfo +olsrd-mod-nameservice \
 	+olsrd-mod-watchdog +ip +freifunk-gwcheck \
-	+olsrd-mod-txtinfo +batctl +luci2 
+	+olsrd-mod-txtinfo +batctl +freifunk-policyrouting +luci-app-freifunk-policyrouting
 	 
 endef
 
