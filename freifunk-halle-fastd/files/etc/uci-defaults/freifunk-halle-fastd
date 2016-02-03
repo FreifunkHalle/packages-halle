@@ -1,0 +1,20 @@
+#!/bin/sh
+
+uci set network.tap2=interface
+uci set network.tap2.proto=dhcp
+uci set network.tap2.ifname=tap2
+uci commit network
+
+uci set olsrd.tap2=Interface
+uci set olsrd.tap2.ignore=0
+uci set olsrd.tap2.interface=tap1
+uci set olsrd.tap2.Mode=mesh
+uci commit olsrd
+
+
+fw=$(uci get firewall.zone_freifunk.network)
+bool=0
+for i in $fw ; do if [[ "$i" == "tap2" ]] ; then bool=1 ; fi ; done
+if [[ $bool -eq 0 ]] ; then uci set firewall.zone_freifunk.network="$(uci get firewall.zone_freifunk.network) tap2"; fi
+uci commit firewall
+
