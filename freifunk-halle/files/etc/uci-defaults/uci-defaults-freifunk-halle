@@ -2,3 +2,26 @@
 
 uci set luci_splash.general.leasetime=5
 uci commit luci_splash
+
+ntp=$(uci get system.ntp.server)
+bool=0
+for i in $ntp ; do if [[ "$i" == "192.53.103.108" ]] ; then bool=1 ; fi ; done
+if [[ $bool -eq 0 ]] ; then uci  add_list system.ntp.server=192.53.103.108; fi
+bool=0
+for i in $ntp ; do if [[ "$i" == "192.53.103.104" ]] ; then bool=1 ; fi ; done
+if [[ $bool -eq 0 ]] ; then uci  add_list system.ntp.server=192.53.103.104; fi
+bool=0
+for i in $ntp ; do if [[ "$i" == "128.138.140.44" ]] ; then bool=1 ; fi ; done
+if [[ $bool -eq 0 ]] ; then uci  add_list system.ntp.server=128.138.140.44; fi
+
+uci commit system
+
+uci delete freifunk.ffwanfwd
+uci commit freifunk
+
+przones=$(uci get freifunk-policyrouting.pr.zones)
+bool=0
+for i in $ntp ; do if [[ "$i" == "lan" ]] ; then bool=1 ; fi ; done
+if [[ $bool -eq 0 ]] ; then uci add_list freifunk-policyrouting.pr.zones=lan; fi
+
+uci commit freifunk-policyrouting
