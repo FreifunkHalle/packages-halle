@@ -57,3 +57,4 @@ uci set openvpn.client_halle_2.route_delay='10'
 uci commit openvpn
 
 chmod 600 /etc/openvpn/halle.key
+/etc/init.d/openvpn disable
