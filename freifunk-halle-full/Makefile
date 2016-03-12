@@ -15,7 +15,7 @@ define Package/freifunk-halle-full
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-full
-  DEPENDS:=+freifunk-halle-vpn +luci +freifunk-halle-botinfo +freifunk-halle-dhcp \
+  DEPENDS:=+freifunk-halle-vpn +luci +freifunk-halle \
     +luci-mod-freifunk +luci-mod-freifunk-community +luci-app-meshwizard +freifunk-p2pblock \
     +luci-proto-ppp +luci-app-freifunk-widgets +luci-ssl \
     +luci-app-freifunk-policyrouting +luci-app-p2pblock +iputils-traceroute6 +freifunk-de \

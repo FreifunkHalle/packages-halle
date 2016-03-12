@@ -3,28 +3,27 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=freifunk-halle-luci2
+PKG_NAME:=freifunk-halle-without-web
 PKG_RELEASE:=1.1.1
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/freifunk-halle-luci2
+define Package/freifunk-halle-without-web
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-vpn
-  DEPENDS:=+freifunk-halle-vpn +freifunk-halle-botinfo +freifunk-halle-dhcp \
-    	+meshwizard +freifunk-firewall +uhttpd +uhttpd-mod-ubus \
+  DEPENDS:=+freifunk-halle-vpn +freifunk-halle +meshwizard +freifunk-firewall \
 	+olsrd +olsrd-mod-dyn-gw-plain +olsrd-mod-jsoninfo +olsrd-mod-nameservice \
 	+olsrd-mod-watchdog +ip +freifunk-gwcheck \
-	+olsrd-mod-txtinfo +batctl +freifunk-policyrouting +luci-app-freifunk-policyrouting
+	+olsrd-mod-txtinfo +batctl +freifunk-policyrouting 
 	 
 endef
 
-define Package/freifunk-halle-luci2/description
-  Metapackage to select all packages for Freifnk Halle.
+define Package/freifunk-halle-without-web/description
+  Metapackage to select packages for Freifnk Halle without Webinterface.
 endef
 
 define Build/Prepare
@@ -37,8 +36,8 @@ endef
 define Build/Compile
 endef
 
-define Package/freifunk-halle-luci2/install
+define Package/freifunk-halle-without-web/install
   $(CP) ./files/* $(1)/
 endef
 
-$(eval $(call BuildPackage,freifunk-halle-luci2))
+$(eval $(call BuildPackage,freifunk-halle-without-web))
