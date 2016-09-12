@@ -14,7 +14,7 @@ define Package/freifunk-halle-without-vpn
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
-  TITLE:=freifunk-halle-vpn
+  TITLE:=freifunk-halle-without-vpn
   DEPENDS:=+luci +freifunk-halle +luci-mod-freifunk \
 	+luci-mod-freifunk-community +meshwizard \
 	+olsrd-mod-txtinfo +batctl

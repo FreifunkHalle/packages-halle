@@ -14,7 +14,7 @@ define Package/freifunk-halle-without-web
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
-  TITLE:=freifunk-halle-vpn
+  TITLE:=freifunk-halle-without-web
   DEPENDS:=+freifunk-halle-vpn +freifunk-halle +meshwizard +freifunk-firewall \
 	+olsrd +olsrd-mod-dyn-gw-plain +olsrd-mod-jsoninfo +olsrd-mod-nameservice \
 	+olsrd-mod-watchdog +ip +freifunk-gwcheck \
