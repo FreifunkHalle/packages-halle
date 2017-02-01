@@ -20,22 +20,5 @@ uci set olsrd.tap1.Mode=mesh
 
 uci commit olsrd
 
-fw=$(uci get firewall.zone_freifunk.network)
-bool=0
-for i in $fw ; do if [[ "$i" == "tap0" ]] ; then bool=1 ; fi ; done
-if [[ $bool -eq 0 ]] ; then uci set firewall.zone_freifunk.network="$(uci get firewall.zone_freifunk.network) tap0"; fi
-bool=0
-for i in $fw ; do if [[ "$i" == "tap1" ]] ; then bool=1 ; fi ; done
-if [[ $bool -eq 0 ]] ; then uci set firewall.zone_freifunk.network="$(uci get firewall.zone_freifunk.network) tap1"; fi
-
-uci commit firewall
-
 chmod 600 /etc/openvpn/halle.key
 
-. /usr/bin/meshwizard/helpers/read_defaults.sh
-if [ $profile_batman == 2 ] ; then
-  tap=$(uci get network.batman.ifname)
-  bool=0
-  for i in $tap ; do if [[ "$i" == "tap1" ]] ; then bool=1 ; fi ; done
-  if [[ $bool -eq 0 ]] ; then uci  add_list network.batman.ifname="tap1"; fi 
-fi
