@@ -15,7 +15,7 @@ define Package/freifunk-halle-vpn-prepare
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=freifunk-halle-vpn-prepare
-  DEPENDS:=+freifunk-common +openvpn-polarssl
+  DEPENDS:=+freifunk-common +openvpn-mbedtls
 endef
 
 define Package/freifunk-halle-vpn-prepare/description
